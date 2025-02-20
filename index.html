@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <style>
+      body {
+    background-color: black;
+    color: green;
+    text-align: center;
+    font-family: monospace;
+    overflow: hidden;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh; /* Толық экранға бейімделеді */
+}
+
+/* Контейнер */
+.container {
+    position: relative;
+    max-width: 90%; /* Экранға бейімделу үшін */
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Логотип */
+#logo {
+    width: 200px;
+    filter: blur(5px);
+    animation: pulse 3s infinite;
+}
+
+@keyframes pulse {
+    0% { filter: blur(5px); }
+    50% { filter: blur(2px); }
+    100% { filter: blur(5px); }
+}
+
+/* Келісім шарт бөлімі */
+.terms {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+}
+
+/* Радио батырманы жасыру */
+.terms input {
+    display: none;
+}
+
+/* Дөңгелек батырма */
+.terms label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(to bottom, #006400, #008000);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+    position: relative;
+}
+.terms input:checked + label {
+    background: linear-gradient(to bottom, #00cc00, #009900);
+    transform: scale(1.1);
+}
+
+/* Галочка */
+.terms label span {
+    font-size: 18px;
+    color: white;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.terms input:checked + label span {
+    opacity: 1;
+}
+
+/* Текст дұрыс туралануы */
+.terms-text {
+    font-size: 16px;
+    color: lightgreen;
+    font-weight: bold;
+    text-align: center;
+    width: 100%; /* Толық ені пайдалану */
+    margin-top: 50px; /* Батырмадан аздап төмендету */
+    line-height: 1.4; /* Оқылуын жақсарту */
+    word-break: break-word; /* Ұзын сөздерді тасымалдау */
+}
+
+
+/* Өту батырмасы */
+.proceed-button {
+    padding: 12px 24px;
+    background: gray;
+    border: none;
+    color: white;
+    font-size: 18px;
+    border-radius: 5px;
+    cursor: not-allowed;
+    transition: background 0.3s, transform 0.2s;
+}
+
+/* Белгіленген кезде батырма белсенді болады */
+.terms input:checked ~ .proceed-button {
+    background: #00cc00;
+    cursor: pointer;
+    transform: scale(1.05);
+}
+
+        .languages {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center; /* Ортасына қою */
+    flex-wrap: wrap; /* Тар экрандарда жаңа жолға өту */
+    gap: 10px; /* Ара қашықтық */
+}
+
+.languages button {
+    padding: 12px 20px; /* Ыңғайлырақ өлшем */
+    background: linear-gradient(to bottom, #555, #333); /* Көркем градиент */
+    color: white;
+    border: none;
+    border-radius: 5px; /* Дөңгелектеу */
+    cursor: pointer;
+    font-size: 16px;
+    transition: background 0.3s, transform 0.2s;
+}
+
+.languages button:hover {
+    background: linear-gradient(to bottom, #777, #444);
+    transform: scale(1.05); /* Аздап үлкейту */
+}
+
+/* Адаптивтілік */
+@media screen and (max-width: 600px) {
+    .languages {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .languages button {
+        width: 80%; /* Телефондарда үлкенірек қылу */
+    }
+}
+
+        .hacker-numbers {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    font-size: 20px;
+    color: lime;
+    opacity: 0.7;
+    white-space: nowrap;
+    overflow: hidden;
+    pointer-events: none; /* Элементтерді басуға болмайтындай етіп жасайды */
+}
+
+/* Flash анимациясы */
+@keyframes flash {
+    0%, 90% { opacity: 0; }
+    95% { opacity: 0.5; }
+    100% { opacity: 0; }
+}
+
+.flash {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.1); /* Flash эффектінің түсін жұмсарту */
+    top: 0;
+    left: 0;
+    opacity: 0;
+    animation: flash 5s infinite;
+    z-index: 10;
+    pointer-events: none;
+}
+
+/* Matrix-style сандар анимациясы */
+@keyframes matrixRain {
+    from { transform: translateY(-100%); opacity: 0; }
+    to { transform: translateY(100vh); opacity: 1; }
+}
+
+.matrix-digit {
+    position: absolute;
+    top: -50px;
+    left: calc(var(--x) * 1%);
+    font-size: 24px;
+    opacity: 0.7;
+    animation: matrixRain 5s linear infinite;
+}
+@media screen and (max-width: 600px) {
+    .matrix-digit {
+        font-size: 18px; /* Шрифтті кішірейту */
+    }
+    .hacker-numbers {
+        font-size: 16px;
+    }
+}
+.hacker-numbers {
+            position: fixed;
+            width: 100vw;
+            height: 100vh;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+}
+@keyframes matrixRain {
+            from { transform: translateY(-100%); opacity: 0; }
+            to { transform: translateY(100vh); opacity: 1; }
+        }
+.container {
+        margin-top: 20px; /* Кішірек экрандар үшін азайту */
+        padding: 10px;
+    }
+
+    .matrix-digit {
+            position: absolute;
+            top: -50px;
+            left: calc(var(--x) * 1%);
+            font-size: 24px;
+            color: lime;
+            opacity: 0.7;
+            animation: matrixRain linear infinite;
+        }
+        @media screen and (max-width: 600px) {
+            .matrix-digit {
+                font-size: 16px;
+                animation-duration: 6s;
+            }
+        }
+@media screen and (max-width: 600px) {
+    .matrix-digit {
+        animation-duration: 6s; /* Телефонда жылдамдықты азайту */
+    }
+}
+
+
+
+    </style>
+</head>
+<body>
+    <div class="flash"></div>
+    <div class="container">
+        <img id="logo" src="фотопнг.png" alt="Logo">
+        <div class="hacker-numbers"></div>
+        <div class="terms">
+            <input type="radio" id="agree" name="terms">
+            <label for="agree" id="terms-text">Нұрәлем</label>
+            <button id="support-button" class="proceed-button">Support</button>
+        </div>
+        <div class="languages">
+            <button onclick="setLanguage('kk')">КЗ</button>
+            <button onclick="setLanguage('ru')">РУС</button>
+            <button onclick="setLanguage('en')">ENG</button>
+        </div>
+    </div>
+    <script>
+        const translations = {
+    'kk': {
+        'terms': 'Нұрәлем',
+        'proceed': 'Өту'
+    },
+    'ru': {
+        'terms': 'Нуралем',
+        'proceed': 'Перейти'
+    },
+    'en': {
+        'terms': 'Nuralem',
+        'proceed': 'Proceed'
+    }
+};
+
+function setLanguage(lang) {
+    document.getElementById('terms-text').textContent = translations[lang].terms;
+    document.getElementById('proceed-button').textContent = translations[lang].proceed;
+    updateButtonState();
+}
+document.getElementById("support-button").addEventListener("click", function () {
+        window.location.href = 'nurs.html';
+    });
+function updateButtonState() {
+    let button = document.getElementById('proceed-button');
+    let checkbox = document.getElementById('agree');
+
+    if (button && checkbox) {
+        button.disabled = !checkbox.checked;
+        button.style.cursor = checkbox.checked ? 'pointer' : 'not-allowed';
+    }
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+            const hackerNumbers = document.querySelector(".hacker-numbers");
+
+            function createMatrixEffect() {
+                const num = document.createElement("span");
+                num.classList.add("matrix-digit");
+                num.style.setProperty("--x", Math.random() * 100);
+                num.style.animationDuration = `${Math.random() * 3 + 2}s`;
+                num.textContent = Math.floor(Math.random() * 10);
+
+                hackerNumbers.appendChild(num);
+
+                setTimeout(() => {
+                    num.remove();
+                }, 5000);
+            }
+
+            setInterval(createMatrixEffect, 100);
+        });
+    </script>
+</body>
+</html>

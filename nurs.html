@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Реклама, Аватар и Загрузка файлов</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- 1-РАЗДЕЛ: Рекламное изображение -->
+    <div class="banner">
+        <img src="nur2.png" alt="Реклама" class="banner-img">
+        <div class="banner-text">Твое имя навсегда в памяти!</div>
+    </div>
+
+    <!-- 2-РАЗДЕЛ: Аватар и вращающийся текст -->
+    <div class="avatar-container">
+        <img src="nur.png" alt="Аватар" class="avatar">
+        
+        <!-- Вращающийся текст с использованием SVG -->
+        <svg class="circle-svg" viewBox="0 0 200 200">
+            <defs>
+                <path id="circlePath" d="M 100,100 m -80,0 a 80,80 0 1,1 160,0 a 80,80 0 1,1 -160,0"/>
+            </defs>
+            <text fill="lightgreen" font-size="14" font-weight="bold">
+                <textPath xlink:href="#circlePath" startOffset="0%" id="rotatingText">
+                    אני לעולם לא אשכח אותך - Я никогда тебя не забуду
+                </textPath>
+            </text>
+        </svg>
+    </div>
+
+    <!-- 3-РАЗДЕЛ: Загрузка файлов -->
+    <div class="file-upload">
+        <h2>Загрузка файла</h2>
+        <input type="file" id="fileInput">
+        <button onclick="uploadFile()">Загрузить</button>
+    </div>
+
+    <!-- Список загруженных файлов -->
+    <div class="file-list">
+        <h2>Загруженные файлы</h2>
+        <ul id="fileList"></ul>
+    </div>
+
+    <!-- Управление анимацией -->
+    <div class="controls">
+        <button onclick="increaseSpeed()">Ускорить вращение</button>
+        <button onclick="decreaseSpeed()">Замедлить вращение</button>
+        <button onclick="changeColor()">Изменить цвет</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
