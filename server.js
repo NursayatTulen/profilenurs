@@ -94,3 +94,11 @@ app.delete("/delete/:fileName", express.json(), (req, res) => {
 app.listen(PORT, () => {
     console.log(`🚀 Сервер іске қосылды: http://localhost:${PORT}`);
 });
+// 📌 Басты бет ретінде nurs.html көрсету
+app.get("/", (req, res) => {
+    res.sendFile(path.join(__dirname, "public", "index.html"));
+});
+
+// 📌 'public' бумасындағы барлық файлдарды статикалық ретінде көрсету
+app.use(express.static(path.join(__dirname, "public")));
+
